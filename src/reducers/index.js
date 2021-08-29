@@ -1,9 +1,5 @@
-import { applyMiddleware, createStore } from "redux";
-import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import logger from 'redux-logger';
 
-import { FETCH_SMURFS, SET_SMURFS, FAILED_SMURFS, ADD_SMURF, ERROR_LOADING } from "../actions";
+import { FETCH_SMURFS_START, FETCH_SMURFS_SUCCESS, FETCH_SMURFS_FAIL, ADD_SMURF, ERROR_LOADING } from "../actions";
 
 export const initialState = {
     smurfs: [],
@@ -11,30 +7,61 @@ export const initialState = {
     errorLoading: ""
 }
 
-const reducer = (state = initialState, action) =>{
+const reducer = (state = initialState, action) => {
     switch(action.type) {
-        case FETCH_SMURFS:
-            console.log(action);
-            return {...state, isLoading: !state.isLoading}
-        case SET_SMURFS:
-            console.log(action);
-            return {...state, smurfs: action.setSmurfs}
-        case FAILED_SMURFS:
-            console.log(action);
-            return {...state, errorLoading: "Failed to get Smurfs"}
+        case FETCH_SMURFS_START:
+            return ({
+                ...state,
+                isLoading: true,
+                errorMessage: ''
+            })
+
+        case FETCH_SMURFS_SUCCESS:
+            return ({
+                ...state,
+                smurfs: action.payload,
+                isLoading: false,
+                errorMessage: ''
+            })
+
+        case FETCH_SMURFS_FAIL: 
+            return {
+                ...state,
+                isLoading: false,
+                errorMessage: action.payload
+            }
+
         case ADD_SMURF:
-            console.log(action);
-            return {...state, smurfs: action.addSmurf}
-        case ERROR_LOADING:
-            console.log(action);
-            return {...state, errorLoading: action.errorLoading}
+            const newSmurf = {
+                id: state.smurfs.length,
+                name: action.payload.name,
+                position: action.payload.position,
+                nickname: action.payload.nickname,
+                description: action.payload.description
+            }
+        
+            return {
+                ...state,
+                smurfs: [...state.smurfs, newSmurf],
+                isLoading: false,
+                errorMessage: ''
+            }
+
+        case FORM_ERROR:
+            return {
+                ...state,
+                isLoading: false,
+                errorMessage: action.payload
+            }
+        
         default:
             return state;
     }
 }
 
+
 //**************DO NOT EDIT ANY CODE BEYOND THIS POINT**************//
-export const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk, logger)));
+export default reducer;
 
 //Task List:
 //1. Adds the following state values into the initialState:
