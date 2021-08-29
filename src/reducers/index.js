@@ -1,12 +1,40 @@
+import { applyMiddleware, createStore } from "redux";
+import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import logger from 'redux-logger';
+
+import { FETCH_SMURFS, GOT_SMURFS, FAILED_SMURFS, ADD_SMURF, ERROR_LOADING } from "../actions";
 
 export const initialState = {
+    smurfs: [],
+    isLoading: false,
+    errorLoading: ""
 }
 
-const reducer = ()=>{
+const reducer = (state = initialState, action) =>{
+    switch(action.type) {
+        case FETCH_SMURFS:
+            console.log(action);
+            return {...state, isLoading: !state.isLoading}
+        case GOT_SMURFS:
+            console.log(action);
+            return {...state, smurfs: action.gotSmurfs}
+        case FAILED_SMURFS:
+            console.log(action);
+            return {...state, errorLoading: action.errorLoading}
+        case ADD_SMURF:
+            console.log(action);
+            return {...state, smurfs: action.addSmurf}
+        case ERROR_LOADING:
+            console.log(action);
+            return {...state, errorLoading: action.addErrorMessage}
+        default:
+            return state;
+    }
 }
 
 //**************DO NOT EDIT ANY CODE BEYOND THIS POINT**************//
-export default reducer;
+export const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk, logger)));
 
 //Task List:
 //1. Adds the following state values into the initialState:

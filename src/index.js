@@ -3,6 +3,8 @@ import ReactDOM from "react-dom";
 
 import "./index.css";
 import App from "./App";
+import { Provider } from 'react-redux';
+import { store } from './reducers/index'
 
 const { worker } = require('./mocks/browser');
 worker.start();
@@ -10,9 +12,13 @@ worker.start();
 const rootElement = document.getElementById("root");
 
 ReactDOM.render(
-    <App />, 
-    rootElement
-);
+    <Provider store={store}>
+      <React.StrictMode>
+        <App />
+    </React.StrictMode>
+    </Provider>,
+    document.getElementById('root')
+  );
 
 //Task List:
 //1. Add in all necessary components and libary methods.
