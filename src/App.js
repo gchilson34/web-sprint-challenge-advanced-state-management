@@ -8,7 +8,8 @@ import axios from 'axios';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
-
+import { fetchSmurfs } from './actions/index';
+import { connect } from 'react-redux';
 
 class App extends Component {
   componentDidMount() {
@@ -21,7 +22,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header />
-
+        {fetchSmurfs}
         <main>
           <SmurfList/>
           <AddForm/>
@@ -31,7 +32,13 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    smurfs: state.smurfs
+  };
+};
+
+export default connect(mapStateToProps, { fetchSmurfs }) (App);
 
 //Task List:
 //1. Connect the fetchSmurfs actions to the App component.
