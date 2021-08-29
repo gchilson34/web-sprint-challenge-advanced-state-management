@@ -9,6 +9,7 @@ import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./App.css";
 
+
 class App extends Component {
   componentDidMount() {
     axios.get('http://localhost:3333/smurfs')

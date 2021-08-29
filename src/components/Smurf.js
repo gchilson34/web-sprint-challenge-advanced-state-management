@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 //**************DO NOT EDIT ANY CODE BEYOND THIS POINT**************//
 
@@ -16,4 +17,13 @@ const Smurf = (props)=> {
     </div>);
 }
 
-export default Smurf;
+const mapStateToProps = state => {
+    return {
+       name: state.name,
+       position: state.position,
+       nickname: state.nickname,
+       description: state.description
+    }
+}
+
+export default connect(mapStateToProps, {})(Smurf);

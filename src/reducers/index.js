@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import logger from 'redux-logger';
 
-import { FETCH_SMURFS, GOT_SMURFS, FAILED_SMURFS, ADD_SMURF, ERROR_LOADING } from "../actions";
+import { FETCH_SMURFS, SET_SMURFS, FAILED_SMURFS, ADD_SMURF, ERROR_LOADING } from "../actions";
 
 export const initialState = {
     smurfs: [],
@@ -16,18 +16,18 @@ const reducer = (state = initialState, action) =>{
         case FETCH_SMURFS:
             console.log(action);
             return {...state, isLoading: !state.isLoading}
-        case GOT_SMURFS:
+        case SET_SMURFS:
             console.log(action);
-            return {...state, smurfs: action.gotSmurfs}
+            return {...state, smurfs: action.setSmurfs}
         case FAILED_SMURFS:
             console.log(action);
-            return {...state, errorLoading: action.errorLoading}
+            return {...state, errorLoading: "Failed to get Smurfs"}
         case ADD_SMURF:
             console.log(action);
             return {...state, smurfs: action.addSmurf}
         case ERROR_LOADING:
             console.log(action);
-            return {...state, errorLoading: action.addErrorMessage}
+            return {...state, errorLoading: action.errorLoading}
         default:
             return state;
     }
