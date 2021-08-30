@@ -1,5 +1,9 @@
 import axios from 'axios';
-import {FETCH_SMURFS_START, FETCH_SMURFS_SUCCESS, FETCH_SMURFS_FAIL, ADD_SMURF, FORM_ERROR} from '../reducers/index.js'
+export const FETCH_SMURFS_START = 'Fetch Smurf Start';
+export const FETCH_SMURFS_SUCCESS = 'Fetch Smurfs Success';
+export const FETCH_SMURFS_FAIL = 'Fetch Smurfs Fail';
+export const ADD_SMURF = 'Add Smurf';
+export const FORM_ERROR = 'Form Error';
 
 export const fetchSmurfs = () => {
     return (dispatch) => {
@@ -9,7 +13,7 @@ export const fetchSmurfs = () => {
                 dispatch({type: FETCH_SMURFS_SUCCESS, payload: res.data})
             })
             .catch(err => {
-                dispatch({type: FETCH_SMURFS_FAIL, payload: 'There was an error!'})
+                dispatch({type: FETCH_SMURFS_FAIL, payload: 'There was an error'})
             })
     }
 }
@@ -19,7 +23,7 @@ export const addSmurf = (newSmurf) => {
 }
 
 export const formError = () => {
-    return ({type: FORM_ERROR, payload: '"Name, Position, and Nickname fields are required."'})
+    return ({type: FORM_ERROR, payload: "All Fields Required"})
 }
 
 //Task List:

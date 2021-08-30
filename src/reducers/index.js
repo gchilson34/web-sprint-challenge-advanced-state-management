@@ -1,5 +1,4 @@
-
-import { FETCH_SMURFS_START, FETCH_SMURFS_SUCCESS, FETCH_SMURFS_FAIL, ADD_SMURF, ERROR_LOADING } from "../actions";
+import {FETCH_SMURFS_START, FETCH_SMURFS_SUCCESS, FETCH_SMURFS_FAIL, ADD_SMURF, FORM_ERROR} from '../actions/index.js'
 
 export const initialState = {
     smurfs: [],

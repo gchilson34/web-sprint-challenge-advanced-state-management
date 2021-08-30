@@ -1,24 +1,27 @@
 import React from "react";
 import ReactDOM from "react-dom";
-
+import reducer from './reducers'
 import "./index.css";
 import App from "./App";
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import { store } from './reducers/index'
+import thunk from 'redux-thunk';
+import logger from 'redux-logger';
 
 const { worker } = require('./mocks/browser');
 worker.start();
+
+const store = createStore(reducer, applyMiddleware(thunk, logger))
 
 const rootElement = document.getElementById("root");
 
 ReactDOM.render(
     <Provider store={store}>
-      <React.StrictMode>
         <App />
-    </React.StrictMode>
-    </Provider>,
-    document.getElementById('root')
-  );
+    </Provider>, 
+    rootElement
+);
+
 
 //Task List:
 //1. Add in all necessary components and libary methods.
